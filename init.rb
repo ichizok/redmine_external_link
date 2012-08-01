@@ -10,5 +10,13 @@ Redmine::Plugin.register :redmine_external_link do
 end
 
 class ExternalLinkHookListener < Redmine::Hook::ViewListener
-  render_on :view_layouts_base_html_head, :inline => "<%= javascript_include_tag 'external_link', :plugin => 'redmine_external_link' %>"
+  EXTERNAL_LINK = <<EOT
+Event.observe(window, 'load', function() {
+  var domain = new RegExp('^https?://' + document.domain);
+  $$('a').each(function(e) {
+    if (!e.href.match(domain)) { e.target = '_blank'; }
+  });
+}, false);
+EOT
+  render_on :view_layouts_base_body_bottom, :inline => "<%= javascript_tag \"#{EXTERNAL_LINK}\" %>"
 end
