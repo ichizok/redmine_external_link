@@ -5,18 +5,19 @@ Redmine::Plugin.register :redmine_external_link do
   author 'ichizok'
   description 'This is a plugin for Redmine'
   version '0.0.1'
+  requires_redmine :version_or_higher => '2.1.0'
   # url 'http://example.com/path/to/plugin'
   # author_url 'http://example.com/about'
 end
 
 class ExternalLinkHookListener < Redmine::Hook::ViewListener
   EXTERNAL_LINK = <<EOT
-Event.observe(window, 'load', function() {
+$(function() {
   var domain = new RegExp('^https?://' + document.domain);
-  $$('a').each(function(e) {
-    if (!e.href.match(domain)) { e.target = '_blank'; }
+  $('a').each(function() {
+    if (!this.href.match(domain)) { this.target = '_blank'; }
   });
-}, false);
+});
 EOT
   render_on :view_layouts_base_body_bottom, :inline => "<%= javascript_tag \"#{EXTERNAL_LINK}\" %>"
 end
