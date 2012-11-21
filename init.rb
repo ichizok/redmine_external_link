@@ -13,10 +13,16 @@ end
 class ExternalLinkHookListener < Redmine::Hook::ViewListener
   EXTERNAL_LINK = <<EOT
 $(function() {
-  var domain = new RegExp('^https?://' + document.domain);
-  $('a').each(function() {
-    if (!this.href.match(domain)) { this.target = '_blank'; }
-  });
+  $('a[href^=\\\"http\\\"]')
+    .not('[href^=\\\"//' + location.hostname + '\\\"]')
+    .attr('target', '_blank')
+    .bind('click', function() {
+      var url = this.href;
+      var w = window.open();
+      w.document.write('<meta http-equiv=\\\"refresh\\\" content=\\\"0;url=' + url + '\\\">');
+      w.document.close();
+      return false;
+    });
 });
 EOT
   render_on :view_layouts_base_body_bottom, :inline => "<%= javascript_tag \"#{EXTERNAL_LINK}\" %>"
