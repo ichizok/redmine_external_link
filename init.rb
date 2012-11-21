@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_external_link do
   name 'Redmine External Link plugin'
   author 'ichizok'
   description 'This is a plugin for Redmine'
-  version '0.0.2'
+  version '0.0.3'
   requires_redmine :version_or_higher => '2.1.0'
   # url 'http://example.com/path/to/plugin'
   # author_url 'http://example.com/about'
