@@ -13,8 +13,7 @@ end
 class ExternalLinkHookListener < Redmine::Hook::ViewListener
   EXTERNAL_LINK = <<EOT
 $(function() {
-  $('a[href^=\\\"http\\\"]')
-    .not('[href^=\\\"//' + location.hostname + '\\\"]')
+  $('a[href^=\\\"http\\\"]:not([href^=\\\"//' + location.hostname + '\\\"])')
     .attr('target', '_blank')
     .bind('click', function() {
       var url = this.href;
