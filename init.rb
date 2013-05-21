@@ -6,8 +6,8 @@ Redmine::Plugin.register :redmine_external_link do
   description 'This is a plugin for Redmine'
   version '0.0.3'
   requires_redmine :version_or_higher => '2.1.0'
-  # url 'http://example.com/path/to/plugin'
-  # author_url 'http://example.com/about'
+  url 'https://github.com/ichizok/redmine_external_link'
+  author_url 'https://github.com/ichizok'
 end
 
 class ExternalLinkHookListener < Redmine::Hook::ViewListener

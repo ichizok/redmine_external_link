@@ -1,3 +1,3 @@
-= redmine_external_link
+# Redmine External Link plugin
 
-Description goes here
+This plugin allows you to open a link to external site without referer.
